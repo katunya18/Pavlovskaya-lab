@@ -1,53 +1,56 @@
-#include <iostream> 
-#include <limits.h>
-
+#include <iostream>
+#include <cmath>
+#include <stdlib.h>         //Библа для рандома
+#include <time.h>			//Библа для рандома
 using namespace std;
-const int SZ = 4; 
 
-bool Find(int val, int* ar, int size = SZ, int pos = 0)
-{
-	for (int i = pos; i < size; i++)
-		if (ar[i] == val)
-			return true;
-	return false;
-}
-int main()
-{
-	setlocale(LC_ALL, "Russian");
+int main(){
+	int stb,str;
+	const int varRandom = 10;		
+	srand(time(NULL));				//Для рандома
+	cout<<"Кол-во строк и столбцов: ";
+	cin>>stb>>str;
 	
-	int** matr = new int* [SZ];
-	for(int i=0; i<SZ; i++)
-		matr[i]= new int [SZ];	
-	
-	for(int i=0; i<SZ; i++)
-		for(int j=0; j<SZ; j++){
-			cin>>matr[i][j];
-		}
-	
-	/*matr[][] = {
-		1, 2, 1, 6,
-		8, 1, 3, 0,
-		5, 0, 4, 2,
-		1, 3, 7, 9
-	};
-	cout << "1 2 1 6 " << endl;
-	cout << "8 1 3 0 " << endl;
-	cout << "5 0 4 2 " << endl;
-	cout << "1 3 7 9  " << endl;
-	*/
-	
-	int  count = 0;
-	int  max_val = INT_MIN;
-	for (int i = 0; i < SZ; i++)
-	{
-		count += (int)!Find(0, matr[i]);
-		for (int j = 0; j < SZ; j++)
-			if (matr[i][j] > max_val)
-				if (Find(matr[i][j], (int*)matr, SZ * SZ, i * SZ + j + 1))
-					max_val = matr[i][j];
+	int** mass = new int* [stb];
+	for(int i=0; i<stb; i++){
+		mass[i] = new int[str];
 	}
-	cout << "?????????? ????? ??? ?????: " << count << endl;
-	cout << "???????????? ?????,????????????? ????? ?????? ????: " << max_val << endl;
-	system("pause");
+	int sString=0;
+	int max = INT_MIN;
+	
+	for(int i=0; i<stb; i++)
+		for(int j=0; j<str; j++)	
+			mass[i][j] = rand()%varRandom;
+	for(int i=0; i<stb; i++){
+		for(int j=0; j<str; j++)
+			cout<<mass[i][j]<<" ";
+		cout<<endl;
+	}
+	for(int i=0; i<stb; i++){
+		int a = 0;
+		for(int j=0; j<str; j++){
+			if(mass[i][j] != 0) a++;
+		}
+		if(a == str) sString++;
+	}
+	cout<<"Количество строк без нулевого элемента: "<<sString<<endl;
+	
+	int mass2[stb*str];
+	int k=0;
+	
+	while(k<stb*str){
+		for(int i=0; i<stb; i++)
+			for(int j=0; j<str; j++){
+				mass2[k] = mass[i][j];
+				k++;
+			}
+	}
+	
+	for(int i=0; i<stb*str; i++)
+		for(int j=i+1; j<stb*str; j++)
+			if(mass2[i] == mass2[j] && mass2[i]>max && i!=j) max = mass2[i];			
+					
+	cout<<"Максимальное из встречающихся более одного раза: "<<max<<endl;
+	
 	return 0;
 }
