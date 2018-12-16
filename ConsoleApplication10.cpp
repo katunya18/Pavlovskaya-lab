@@ -1,4 +1,4 @@
-﻿# include "pch.h"
+# include "pch.h"
 #include <iostream>
 #include <fstream>
 #include <cstring>
@@ -10,9 +10,10 @@ int main() {
 	char words[1000];
 	int Lenght = 0;
 	int sStrings = 0;
+	char** proverka = new char*[sStrings];
 	setlocale(LC_ALL, "Russian");
 	string line;
-	ifstream myfile("D:\\proverka2.txt");
+	ifstream myfile("D:\\proverka2.dat");
 	if (myfile.is_open())
 	{
 		while (getline(myfile, line))
@@ -24,19 +25,46 @@ int main() {
 	else cout << "Не удается открыть файл";
 	string Text;
 	const int Length = Text.length();
-	int Counter = 0;   //Объявляем счетчик
+	int Counter = 0;  
 	for (int i = 0; i <= Length; i++)
 	{
 		if ((Text[i] == '.') || (Text[i] == '!') || (Text[i] == '?')) //Проверяем символ, если он !, ., или ?
 		{
 			Counter++;
-		}                             //То прибавить 1 к счетчику предложений
+		}                             
 
 		cout << "\nПредложений в тексте: " << Counter;
 	}
+	int q1=0;
+	while(q1<sStrings+1)
+		
+	for(int i=0; i<sStrings; i++)
+		for(int j=0;j<strlen(proverka[i])+1;j++){
+
+			if(proverka[i][j]=='\0') predlogenia[q1]='.';
+			else predlogenia[s1]=proverka[i][j];
+			q1++;
+		}
+
+	q1=0;
+	while(q1<strlen(predlogenia)-2){
+		cout<<endl;
+		cout<<"Нажмите H для выделения предложений ";
+		cin>>button;
+		if(button=='H'){
+
+			while(predlogenia[q1]!='.')  || (predlogenia[q1]!='?')  || (predlogenia[q1]!='!'){
+				cout<<predlogenia[q1];
+				q1++;
+			}
+
+		q1++;
+		cout<<endl;
+		}
+	}
 	system("Pause");
 	return 0;
-
 }
+
 	
 	
